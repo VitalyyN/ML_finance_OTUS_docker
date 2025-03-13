@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="refresh" content="300">
+    <title>ETH Price Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>ETH Price Prediction</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Date & Time</th>
+                <th>Close Price</th>
+                <th>Prediction</th>
+                <th>Confidence</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for prediction in predictions %}
+            <tr>
+                <td>{{ prediction['timestamp'] }}</td>
+                <td>{{ prediction['Close'] }}</td>
+                <td>{{ 'Down' if prediction['Prediction'] == 0 else 'No Change' if prediction['Prediction'] == 1 else 'Up' }}</td>
+                <td>{{ "%.2f"|format(prediction['Confidence'] * 100) }}%</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
